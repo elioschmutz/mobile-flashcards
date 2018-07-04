@@ -14,7 +14,7 @@ class DeckView extends Component {
         <View style={styles.container}>
           <View style={styles.center}>
             <Text h2>Your score</Text>
-            <Text h1>{`${score}/${max}`}</Text>
+            <Text h1>{`1/2`}</Text>
           </View>
           <View>
             <PrimaryButton title="Done" />
