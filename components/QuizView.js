@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import Header from './Header'
 import { Text } from 'react-native-elements'
-import { PrimaryButton, SecondaryButton, SuccessButton, ErrorButton } from './Button'
+import { PrimaryButton, SuccessButton, ErrorButton } from './Button'
 import { primary } from '../utils/colors'
 
 class QuizView extends Component {
@@ -19,27 +18,31 @@ class QuizView extends Component {
     })
   }
 
+  onPressButton = () => {
+    const { navigation } = this.props
+    navigation.navigate('ScoreView')
+  }
+
   render() {
     const deck = {
-        title: 'React',
-        questions: [
-          {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces'
-          },
-          {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event'
-          }
-        ]
-      }
+      title: 'React',
+      questions: [
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        }
+      ]
+    }
 
     const { pointer, showFront } = this.state
     const [question, answer] = Object.values(deck.questions[pointer])
 
     return (
       <View style={{ flex: 1 }}>
-        <Header showBackButton={true}>Quiz</Header>
         <View>
           <Text h3>2/2</Text>
         </View>
@@ -60,8 +63,8 @@ class QuizView extends Component {
               <Text h1>{answer}</Text>
             </View>
             <View>
-              <SuccessButton title="Correct" />
-              <ErrorButton title="Incorrect" />
+              <SuccessButton onPress={this.onPressButton} title="Correct" />
+              <ErrorButton onPress={this.onPressButton} title="Incorrect" />
             </View>
           </View>
         )}

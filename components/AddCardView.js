@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import Header from './Header'
 import { Text } from 'react-native-elements'
 import { PrimaryButton } from './Button'
 import { FormInput } from 'react-native-elements'
@@ -9,10 +8,13 @@ class AddCardView extends Component {
   state = {
     text: ''
   }
+  onSubmit = () => {
+    const { navigation } = this.props
+    navigation.navigate('DeckView', { deckId: 1 })
+  }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-        <Header showBackButton={true}>New Card</Header>
         <View style={[styles.container]}>
           <Text h1>Add a new card</Text>
           <FormInput
@@ -28,7 +30,7 @@ class AddCardView extends Component {
             value={this.state.text}
           />
 
-          <PrimaryButton title="Submit" />
+          <PrimaryButton onPress={this.onSubmit} title="Submit" />
         </View>
       </KeyboardAvoidingView>
     )
@@ -42,5 +44,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     padding: 20
-  },
+  }
 })

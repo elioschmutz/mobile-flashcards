@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, FlatList } from 'react-native'
-import Header from './Header'
 import { ListItem } from 'react-native-elements'
 
-const DeckListViewItem = ({ title, questionLength }) => (
-  <ListItem title={title} subtitle={`${questionLength} cards`} />
+const DeckListViewItem = ({ title, questionLength, onPress }) => (
+  <ListItem onPress={onPress} title={title} subtitle={`${questionLength} cards`} />
 )
 
 class DeckListView extends Component {
@@ -37,12 +36,17 @@ class DeckListView extends Component {
   }
 
   _renderItem = ({ item }) => {
-    return <DeckListViewItem title={item.title} questionLength={item.questions.length} />
+    return (
+      <DeckListViewItem
+        onPress={() => this.props.navigation.navigate('DeckView', { deckId: 1 })}
+        title={item.title}
+        questionLength={item.questions.length}
+      />
+    )
   }
 
   render() {
     const { decks } = this.state
-
     return (
       <View style={styles.container}>
         <FlatList

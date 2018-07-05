@@ -8,7 +8,7 @@ import AddDeckView from './components/AddDeckView'
 import AddCardView from './components/AddCardView'
 import { Constants } from 'expo'
 import { purple, primary, white } from './utils/colors'
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 
@@ -47,6 +47,50 @@ const Tabs = createBottomTabNavigator({
   }
 })
 
+const MainNavigator = createStackNavigator({
+  Home: {
+    screen: Tabs,
+    navigationOptions: {
+      header: null
+    }
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary,
+      }
+    }
+  },
+  AddCardView: {
+    screen: AddCardView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary,
+      }
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary,
+      }
+    }
+  },
+  ScoreView: {
+    screen: ScoreView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary,
+      }
+    }
+  }
+})
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -61,7 +105,7 @@ export default class App extends React.Component {
     return (
       <View style={{flex:1}}>
         <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
-        <Tabs />
+        <MainNavigator />
       </View>
     );
   }

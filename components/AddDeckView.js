@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import Header from './Header'
 import { Text } from 'react-native-elements'
 import { PrimaryButton } from './Button'
 import { FormInput } from 'react-native-elements'
@@ -9,6 +8,13 @@ class AddDeckView extends Component {
   state = {
     text: ''
   }
+  onSubmit = () => {
+    const { navigation } = this.props
+
+    navigation.push('Home')
+    navigation.navigate('DeckView', { deckId: 1 })
+  }
+
   render() {
     const { max, score } = this.props
 
@@ -23,7 +29,7 @@ class AddDeckView extends Component {
             value={this.state.text}
           />
 
-          <PrimaryButton title="Submit" />
+          <PrimaryButton onPress={this.onSubmit} title="Submit" />
         </View>
       </KeyboardAvoidingView>
     )
@@ -37,5 +43,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     padding: 20
-  },
+  }
 })
