@@ -45,7 +45,6 @@ class DeckListView extends Component {
 
     return (
       <View style={styles.container}>
-        <Header>Decks</Header>
         <FlatList
           data={Object.values(decks)}
           renderItem={this._renderItem}
@@ -59,7 +58,8 @@ class DeckListView extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    flex: 1
   },
   item: {
     alignItems: 'center'

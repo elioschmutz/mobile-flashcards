@@ -14,7 +14,6 @@ class AddDeckView extends Component {
 
     return (
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-        <Header showBackButton={true}>New Deck</Header>
         <View style={[styles.container]}>
           <Text h1>What is the title of your new deck?</Text>
           <FormInput

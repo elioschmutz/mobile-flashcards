@@ -7,7 +7,46 @@ import ScoreView from './components/ScoreView'
 import AddDeckView from './components/AddDeckView'
 import AddCardView from './components/AddCardView'
 import { Constants } from 'expo'
-import { purple } from './utils/colors'
+import { purple, primary, white } from './utils/colors'
+import { createBottomTabNavigator } from 'react-navigation'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
+
+
+const Tabs = createBottomTabNavigator({
+  DeckListView: {
+    screen: DeckListView,
+    navigationOptions: {
+      tabBarLabel: 'Decks',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-chatboxes' size={30} color={tintColor} />
+    },
+  },
+  AddDeckView: {
+    screen: AddDeckView,
+    navigationOptions: {
+      tabBarLabel: 'New Deck',
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+    },
+  },
+}, {
+  navigationOptions: {
+    header: null
+  },
+  tabBarOptions: {
+    activeTintColor: primary,
+    style: {
+      height: 56,
+      backgroundColor: white,
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1
+    }
+  }
+})
+
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -21,8 +60,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-        <DeckListView />
+        <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
+        <Tabs />
       </View>
     );
   }
