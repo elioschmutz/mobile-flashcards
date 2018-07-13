@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import React from 'react'
+import { Text, View, StatusBar } from 'react-native'
 import DeckListView from './components/DeckListView'
 import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
@@ -12,41 +12,45 @@ import { setLocalNotification } from './utils/notification'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
-
-const Tabs = createBottomTabNavigator({
-  DeckListView: {
-    screen: DeckListView,
-    navigationOptions: {
-      tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-chatboxes' size={30} color={tintColor} />
+const Tabs = createBottomTabNavigator(
+  {
+    DeckListView: {
+      screen: DeckListView,
+      navigationOptions: {
+        tabBarLabel: 'Decks',
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-chatboxes" size={30} color={tintColor} />
+      }
     },
+    AddDeckView: {
+      screen: AddDeckView,
+      navigationOptions: {
+        tabBarLabel: 'New Deck',
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome name="plus-square" size={30} color={tintColor} />
+        )
+      }
+    }
   },
-  AddDeckView: {
-    screen: AddDeckView,
+  {
     navigationOptions: {
-      tabBarLabel: 'New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+      header: null
     },
-  },
-}, {
-  navigationOptions: {
-    header: null
-  },
-  tabBarOptions: {
-    activeTintColor: primary,
-    style: {
-      height: 56,
-      backgroundColor: white,
-      shadowColor: 'rgba(0, 0, 0, 0.24)',
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
-      shadowRadius: 6,
-      shadowOpacity: 1
+    tabBarOptions: {
+      activeTintColor: primary,
+      style: {
+        height: 56,
+        backgroundColor: white,
+        shadowColor: 'rgba(0, 0, 0, 0.24)',
+        shadowOffset: {
+          width: 0,
+          height: 3
+        },
+        shadowRadius: 6,
+        shadowOpacity: 1
+      }
     }
   }
-})
+)
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -60,7 +64,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: primary,
+        backgroundColor: primary
       }
     }
   },
@@ -69,7 +73,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: primary,
+        backgroundColor: primary
       }
     }
   },
@@ -78,7 +82,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: primary,
+        backgroundColor: primary
       }
     }
   },
@@ -87,13 +91,13 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: primary,
+        backgroundColor: primary
       }
     }
   }
 })
 
-function UdaciStatusBar ({backgroundColor, ...props}) {
+function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
@@ -107,10 +111,10 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
         <MainNavigator />
       </View>
-    );
+    )
   }
 }
