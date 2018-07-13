@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, FlatList, AsyncStorage } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
+import { white } from '../utils/colors'
 
 const DeckListViewItem = ({ title, questionLength, onPress }) => (
   <ListItem onPress={onPress} title={title} subtitle={`${questionLength} cards`} />
@@ -41,6 +42,7 @@ class DeckListView extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-around',
+    backgroundColor: white,
     flex: 1
   },
   noDecksText: {
