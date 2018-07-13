@@ -16,6 +16,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import persistedReducer from './reducers'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import middleware from './middleware'
 
 const Tabs = createBottomTabNavigator(
   {
@@ -110,7 +111,7 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-let store = createStore(persistedReducer)
+let store = createStore(persistedReducer, middleware)
 let persistor = persistStore(store)
 
 export default class App extends React.Component {
