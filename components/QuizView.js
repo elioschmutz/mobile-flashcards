@@ -3,11 +3,13 @@ import { View, StyleSheet } from 'react-native'
 import { Text } from 'react-native-elements'
 import { PrimaryButton, SuccessButton, ErrorButton } from './Button'
 import { primary } from '../utils/colors'
+import { white } from '../utils/colors'
+import { connect } from 'react-redux'
 
 class QuizView extends Component {
   state = {
     pointer: 0,
-    showFront: false,
+    showFront: true,
     score: 0
   }
 
@@ -18,53 +20,62 @@ class QuizView extends Component {
     })
   }
 
-  onPressButton = () => {
-    const { navigation } = this.props
-    navigation.navigate('ScoreView')
+  onPressCorrect = () => {
+    const { navigation, cards } = this.props
+    const { pointer } = this.state
+
+    nextPointer = pointer + 1
+
+    if (nextPointer >= cards.length) {
+      navigation.navigate('ScoreView')
+      return
+    }
+
+    this.setState({
+      pointer: nextPointer,
+      showFront: false
+    })
+
+  }
+
+  onPressIncorrect = () => {
+
+  }
+
+  showAnswer = () => {
+    this.setState({
+      showFront: false
+    })
   }
 
   render() {
-    const deck = {
-      title: 'React',
-      questions: [
-        {
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces'
-        },
-        {
-          question: 'Where do you make Ajax requests in React?',
-          answer: 'The componentDidMount lifecycle event'
-        }
-      ]
-    }
-
+    const { deck, cards } = this.props
     const { pointer, showFront } = this.state
-    const [question, answer] = Object.values(deck.questions[pointer])
-
+    const currentCard = cards[pointer]
     return (
       <View style={{ flex: 1 }}>
         <View>
-          <Text h3>2/2</Text>
+          <Text h3>{`${pointer + 1}/${cards.length}`}</Text>
         </View>
         {showFront ? (
           <View style={styles.container}>
             <View style={styles.center}>
               <Text style={{ color: primary }}>Question</Text>
-              <Text h1>{question}</Text>
+              <Text h1>{currentCard.question}</Text>
             </View>
             <View>
-              <PrimaryButton title="Show answer" />
+              <PrimaryButton onPress={this.showAnswer} title="Show answer" />
             </View>
           </View>
         ) : (
           <View style={styles.container}>
             <View style={styles.center}>
               <Text style={{ color: primary }}>Answer</Text>
-              <Text h1>{answer}</Text>
+              <Text h1>{currentCard.answer}</Text>
             </View>
             <View>
-              <SuccessButton onPress={this.onPressButton} title="Correct" />
-              <ErrorButton onPress={this.onPressButton} title="Incorrect" />
+              <SuccessButton onPress={this.onPressCorrect} title="Correct" />
+              <ErrorButton onPress={this.onPressIncorrect} title="Incorrect" />
             </View>
           </View>
         )}
@@ -76,6 +87,7 @@ class QuizView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: white,
     justifyContent: 'space-around'
   },
   center: {
@@ -83,4 +95,14 @@ const styles = StyleSheet.create({
   }
 })
 
-export default QuizView
+const mapStateToProps = ({ cards }, props) => {
+  const { deck } = props.navigation.state.params
+  const filteredCards = Object.values(cards).filter(card => deck.cards.includes(card.id))
+
+  return {
+    deck,
+    cards: filteredCards
+  }
+}
+
+export default connect(mapStateToProps)(QuizView)
