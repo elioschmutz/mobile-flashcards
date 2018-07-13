@@ -12,7 +12,7 @@ class DeckListView extends Component {
   _renderItem = ({ item }) => {
     return (
       <DeckListViewItem
-        onPress={() => this.props.navigation.navigate('DeckView', { deck: item })}
+        onPress={() => this.props.navigation.navigate('DeckView', { deckId: item.title })}
         title={item.title}
         questionLength={item.questions.length}
       />
