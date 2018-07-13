@@ -18,10 +18,55 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import middleware from './middleware'
 
-const Tabs = createBottomTabNavigator(
+const decksStack = createStackNavigator({
+  Home: {
+    screen: DeckListView,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary
+      }
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary
+      }
+    }
+  },
+  ScoreView: {
+    screen: ScoreView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary
+      }
+    }
+  },
+  AddCardView: {
+    screen: AddCardView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary
+      }
+    }
+  },
+})
+
+const MainNavigator = createBottomTabNavigator(
   {
-    DeckListView: {
-      screen: DeckListView,
+    Home: {
+      screen: decksStack,
       navigationOptions: {
         tabBarLabel: 'Decks',
         tabBarIcon: ({ tintColor }) => <Ionicons name="ios-chatboxes" size={30} color={tintColor} />
@@ -58,51 +103,6 @@ const Tabs = createBottomTabNavigator(
   }
 )
 
-const MainNavigator = createStackNavigator({
-  Home: {
-    screen: Tabs,
-    navigationOptions: {
-      header: null
-    }
-  },
-  DeckView: {
-    screen: DeckView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary
-      }
-    }
-  },
-  AddCardView: {
-    screen: AddCardView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary
-      }
-    }
-  },
-  QuizView: {
-    screen: QuizView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary
-      }
-    }
-  },
-  ScoreView: {
-    screen: ScoreView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary
-      }
-    }
-  }
-})
-
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -125,7 +125,7 @@ export default class App extends React.Component {
           loading={<ActivityIndicator size="large" color={primary} />}
           persistor={persistor}
         >
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, backgroundColor: white }}>
             <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
             <MainNavigator />
           </View>
