@@ -13,20 +13,18 @@ class DeckView extends Component {
     }
   }
   navigateToAddCard = () => {
-    const { navigation } = this.props
-    const { deck } = navigation.state.params
+    const { navigation, deck } = this.props
 
     navigation.navigate('AddCardView', { deck: deck })
   }
   navigateToStartQuiz = () => {
-    const { navigation } = this.props
-    const { deck } = navigation.state.params
+    const { navigation, deck } = this.props
 
     navigation.navigate('QuizView', { deck: deck })
   }
 
-  hasQuestions = () => {
-    return this.props.deck.questions.length > 0
+  hasCards = () => {
+    return this.props.deck.cards.length > 0
   }
 
   render() {
@@ -37,11 +35,11 @@ class DeckView extends Component {
         <View style={styles.container}>
           <View style={styles.center}>
             <Text h1>{deck.title}</Text>
-            <Text h2>{`${deck.questions.length} cards`}</Text>
+            <Text h2>{`${deck.cards.length} cards`}</Text>
           </View>
           <View>
             <SecondaryButton onPress={this.navigateToAddCard} title="Add Card" />
-            {this.hasQuestions() && (
+            {this.hasCards() && (
               <PrimaryButton onPress={this.navigateToStartQuiz} title="Start Quiz" />
             )}
           </View>

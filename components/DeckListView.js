@@ -4,8 +4,8 @@ import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { white } from '../utils/colors'
 
-const DeckListViewItem = ({ title, questionLength, onPress }) => (
-  <ListItem onPress={onPress} title={title} subtitle={`${questionLength} cards`} />
+const DeckListViewItem = ({ title, onPress, ...rest }) => (
+  <ListItem onPress={onPress} title={title} {...rest} />
 )
 
 class DeckListView extends Component {
@@ -14,7 +14,7 @@ class DeckListView extends Component {
       <DeckListViewItem
         onPress={() => this.props.navigation.navigate('DeckView', { deckId: item.title })}
         title={item.title}
-        questionLength={item.questions.length}
+        subtitle={`${item.cards.length} cards`}
       />
     )
   }
