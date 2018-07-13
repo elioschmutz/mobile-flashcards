@@ -8,6 +8,7 @@ import AddDeckView from './components/AddDeckView'
 import AddCardView from './components/AddCardView'
 import { Constants } from 'expo'
 import { purple, primary, white } from './utils/colors'
+import { setLocalNotification } from './utils/notification'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
@@ -101,6 +102,9 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <View style={{flex:1}}>
