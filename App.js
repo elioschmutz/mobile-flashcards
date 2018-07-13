@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StatusBar } from 'react-native'
+import { Text, View, StatusBar, ActivityIndicator } from 'react-native'
 import DeckListView from './components/DeckListView'
 import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
@@ -11,6 +11,11 @@ import { purple, primary, white } from './utils/colors'
 import { setLocalNotification } from './utils/notification'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import persistedReducer from './reducers'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 const Tabs = createBottomTabNavigator(
   {
@@ -105,16 +110,26 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
   )
 }
 
+let store = createStore(persistedReducer)
+let persistor = persistStore(store)
+
 export default class App extends React.Component {
   componentDidMount() {
     setLocalNotification()
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <PersistGate
+          loading={<ActivityIndicator size="large" color={primary} />}
+          persistor={persistor}
+        >
+          <View style={{ flex: 1 }}>
+            <UdaciStatusBar backgroundColor={primary} barStyle="light-content" />
+            <MainNavigator />
+          </View>
+        </PersistGate>
+      </Provider>
     )
   }
 }
