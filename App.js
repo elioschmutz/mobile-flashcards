@@ -5,6 +5,7 @@ import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
 import AddDeckView from './components/AddDeckView'
 import AddCardView from './components/AddCardView'
+import SettingsView from './components/SettingsView'
 import { Constants } from 'expo'
 import { purple, primary, white } from './utils/colors'
 import { setLocalNotification } from './utils/notification'
@@ -68,6 +69,15 @@ const MainNavigator = createBottomTabNavigator(
         tabBarLabel: 'New Deck',
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome name="plus-square" size={30} color={tintColor} />
+        )
+      }
+    },
+    SettingsView: {
+      screen: SettingsView,
+      navigationOptions: {
+        tabBarLabel: 'Settings',
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome name="gear" size={30} color={tintColor} />
         )
       }
     }
