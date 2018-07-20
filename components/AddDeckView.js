@@ -11,9 +11,7 @@ class AddDeckView extends Component {
     title: ''
   }
 
-  state = {
-    title: ''
-  }
+  state = {...this.initState}
 
   onSubmit = () => {
     const { navigation, dispatch } = this.props
