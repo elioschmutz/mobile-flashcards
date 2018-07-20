@@ -8,10 +8,10 @@ export function addDeck(title) {
   }
 }
 
-export function addCardToDeck(deckId, card) {
+export function addCardToDeck(title, card) {
   return {
     type: ADD_CARD_TO_DECK,
-    deckId,
+    title,
     card,
   }
 }

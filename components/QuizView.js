@@ -95,13 +95,12 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ cards }, props) => {
+const mapStateToProps = (state, props) => {
   const { deck } = props.navigation.state.params
-  const filteredCards = Object.values(cards).filter(card => deck.cards.includes(card.id))
 
   return {
     deck,
-    cards: filteredCards
+    cards: deck.cards
   }
 }
 

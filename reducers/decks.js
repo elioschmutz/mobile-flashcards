@@ -10,9 +10,9 @@ export default function decks(state = {}, action) {
     case ADD_CARD_TO_DECK:
       return {
         ...state,
-        [action.deckId]: {
-          ...state[action.deckId],
-          cards: [...state[action.deckId].cards, action.card.id]
+        [action.title]: {
+          ...state[action.title],
+          cards: [...state[action.title].cards, action.card]
         }
       }
     default:

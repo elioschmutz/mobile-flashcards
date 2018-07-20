@@ -5,7 +5,7 @@ import { PrimaryButton } from './Button'
 import { FormInput } from 'react-native-elements'
 import { white } from '../utils/colors'
 import { connect } from 'react-redux'
-import { handleAddCardToDeck } from '../actions/cards'
+import { addCardToDeck } from '../actions/decks'
 
 class AddCardView extends Component {
   static navigationOptions = () => {
@@ -35,7 +35,7 @@ class AddCardView extends Component {
       return
     }
 
-    dispatch(handleAddCardToDeck(deck.title, { question, answer }))
+    dispatch(addCardToDeck(deck.title, { question, answer }))
     navigation.navigate('DeckView', { deckId: deck.title })
   }
   render() {
