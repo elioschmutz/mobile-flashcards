@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import Card from './Card'
 import Score from './Score'
 import PropTypes from 'prop-types'
+import { setLocalNotification } from '../utils/notification'
 
 class QuizView extends Component {
   static propTypes = {
@@ -30,6 +31,7 @@ class QuizView extends Component {
     nextPointer = pointer + 1
 
     if (nextPointer >= deck.cards.length) {
+      setLocalNotification()
       this.setState({
         isFinish: true
       })
@@ -72,6 +74,7 @@ class QuizView extends Component {
     const { pointer, score, isFinish } = this.state
     const { cards } = deck
     const currentCard = cards[pointer]
+
     return (
       <View style={{ flex: 1 }}>
         {!isFinish ? (
