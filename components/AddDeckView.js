@@ -24,7 +24,7 @@ class AddDeckView extends Component {
     }
     this.reset()
     dispatch(addDeck(title))
-    navigation.navigate('DeckView', { deckId: title })
+    navigation.navigate('DeckView', { title })
   }
 
   reset = () => {

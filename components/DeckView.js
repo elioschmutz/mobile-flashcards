@@ -7,9 +7,9 @@ import { white } from '../utils/colors'
 
 class DeckView extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { deckId } = navigation.state.params
+    const { title } = navigation.state.params
     return {
-      title: `Deck: ${deckId}`
+      title: `Deck: ${title}`
     }
   }
   navigateToAddCard = () => {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ decks }, props) => {
   return {
-    deck: decks[props.navigation.state.params.deckId]
+    deck: decks[props.navigation.state.params.title]
   }
 }
 

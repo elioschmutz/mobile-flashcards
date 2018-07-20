@@ -36,7 +36,7 @@ class AddCardView extends Component {
     }
 
     dispatch(addCardToDeck(deck.title, { question, answer }))
-    navigation.navigate('DeckView', { deckId: deck.title })
+    navigation.navigate('DeckView', { title: deck.title })
   }
   render() {
     const { question, answer } = this.state
