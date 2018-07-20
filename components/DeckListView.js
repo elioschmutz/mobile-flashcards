@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList, AsyncStorage } from 'react-native'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { white } from '../utils/colors'
+import PropTypes from 'prop-types'
 
 const DeckListViewItem = ({ title, onPress, ...rest }) => (
   <ListItem onPress={onPress} title={title} {...rest} />
 )
 
 class DeckListView extends Component {
+  static propTypes = {
+    decks: PropTypes.object.isRequired
+  }
+
   _renderItem = ({ item }) => {
     return (
       <DeckListViewItem

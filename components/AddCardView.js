@@ -6,8 +6,13 @@ import { FormInput } from 'react-native-elements'
 import { white } from '../utils/colors'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../actions/decks'
+import PropTypes from 'prop-types'
 
 class AddCardView extends Component {
+  static propTypes = {
+    deck: PropTypes.object.isRequired
+  }
+
   static navigationOptions = () => {
     return {
       title: 'Add card'

@@ -4,8 +4,13 @@ import { Text } from 'react-native-elements'
 import { PrimaryButton, SecondaryButton } from './Button'
 import { connect } from 'react-redux'
 import { white } from '../utils/colors'
+import PropTypes from 'prop-types'
 
 class DeckView extends Component {
+  static propTypes = {
+    deck: PropTypes.object.isRequired
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
     return {

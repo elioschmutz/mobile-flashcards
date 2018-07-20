@@ -5,8 +5,13 @@ import { white } from '../utils/colors'
 import { connect } from 'react-redux'
 import Card from './Card'
 import Score from './Score'
+import PropTypes from 'prop-types'
 
 class QuizView extends Component {
+  static propTypes = {
+    deck: PropTypes.object.isRequired,
+  }
+
   initState = {
     pointer: 0,
     score: 0,
@@ -19,12 +24,12 @@ class QuizView extends Component {
   }
 
   nextQuestion = () => {
-    const { navigation, cards } = this.props
+    const { navigation, deck } = this.props
     const { pointer } = this.state
 
     nextPointer = pointer + 1
 
-    if (nextPointer >= cards.length) {
+    if (nextPointer >= deck.cards.length) {
       this.setState({
         isFinish: true
       })
@@ -40,7 +45,7 @@ class QuizView extends Component {
   }
 
   onPressCorrect = () => {
-    const { navigation, cards } = this.props
+    const { navigation } = this.props
     const { pointer, score } = this.state
 
     this.setState({
@@ -63,8 +68,9 @@ class QuizView extends Component {
   }
 
   render() {
-    const { deck, cards } = this.props
+    const { deck } = this.props
     const { pointer, score, isFinish } = this.state
+    const { cards } = deck
     const currentCard = cards[pointer]
     return (
       <View style={{ flex: 1 }}>
@@ -112,8 +118,7 @@ const mapStateToProps = (state, props) => {
   const { deck } = props.navigation.state.params
 
   return {
-    deck,
-    cards: deck.cards
+    deck
   }
 }
 

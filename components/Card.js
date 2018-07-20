@@ -4,8 +4,15 @@ import { Text } from 'react-native-elements'
 import { PrimaryButton, SuccessButton, ErrorButton } from './Button'
 import { primary } from '../utils/colors'
 import { white } from '../utils/colors'
+import PropTypes from 'prop-types'
 
 class Card extends Component {
+  static propTypes = {
+    card: PropTypes.object.isRequired,
+    onPressCorrect: PropTypes.func,
+    onPressIncorrect: PropTypes.func,
+  }
+
   state = {
     showFront: true
   }
