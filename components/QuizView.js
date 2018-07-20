@@ -1,17 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Text } from 'react-native-elements'
-import { PrimaryButton, SuccessButton, ErrorButton } from './Button'
-import { primary } from '../utils/colors'
 import { white } from '../utils/colors'
 import { connect } from 'react-redux'
 import Card from './Card'
+import Score from './Score'
 
 class QuizView extends Component {
-  state = {
+  initState = {
     pointer: 0,
-    score: 0
+    score: 0,
+    isFinish: false
   }
+  state = { ...this.initState }
+
   cardNumber = () => {
     return this.state.pointer + 1
   }
@@ -23,13 +25,18 @@ class QuizView extends Component {
     nextPointer = pointer + 1
 
     if (nextPointer >= cards.length) {
-      navigation.navigate('ScoreView')
-      return
+      this.setState({
+        isFinish: true
+      })
+    } else {
+      this.setState({
+        pointer: nextPointer
+      })
     }
+  }
 
-    this.setState({
-      pointer: nextPointer,
-    })
+  reset = () => {
+    this.setState(this.initState)
   }
 
   onPressCorrect = () => {
@@ -46,21 +53,41 @@ class QuizView extends Component {
     this.nextQuestion()
   }
 
+  onPressFinish = () => {
+    const { navigation, deck } = this.props
+    navigation.navigate('DeckView', { title: deck.title })
+  }
+
+  onPressRestart = () => {
+    this.reset()
+  }
+
   render() {
     const { deck, cards } = this.props
-    const { pointer, score } = this.state
+    const { pointer, score, isFinish } = this.state
     const currentCard = cards[pointer]
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.header}>
-          <Text h3>Card {`${this.cardNumber()}/${cards.length}`}</Text>
-          <Text h3>Score {`${score}/${cards.length}`}</Text>
-        </View>
-        <Card
-          card={currentCard}
-          onPressCorrect={this.onPressCorrect}
-          onPressIncorrect={this.onPressIncorrect}
-        />
+        {!isFinish ? (
+          <Fragment>
+            <View style={styles.header}>
+              <Text h3>Card {`${this.cardNumber()}/${cards.length}`}</Text>
+              <Text h3>Score {`${score}/${cards.length}`}</Text>
+            </View>
+            <Card
+              card={currentCard}
+              onPressCorrect={this.onPressCorrect}
+              onPressIncorrect={this.onPressIncorrect}
+            />
+          </Fragment>
+        ) : (
+          <Score
+            max={cards.length}
+            score={score}
+            onPressFinish={this.onPressFinish}
+            onPressRestart={this.onPressRestart}
+          />
+        )}
       </View>
     )
   }

@@ -3,7 +3,6 @@ import { Text, View, StatusBar, ActivityIndicator } from 'react-native'
 import DeckListView from './components/DeckListView'
 import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
-import ScoreView from './components/ScoreView'
 import AddDeckView from './components/AddDeckView'
 import AddCardView from './components/AddCardView'
 import { Constants } from 'expo'
@@ -36,15 +35,6 @@ const decksStack = createStackNavigator({
   },
   QuizView: {
     screen: QuizView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary
-      }
-    }
-  },
-  ScoreView: {
-    screen: ScoreView,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
